@@ -1,7 +1,7 @@
 // src/App.js
 
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import GeneralMetricsPage from './components/GeneralMetricsPage';
 import TimeToSignOffPage from './components/TimeToSignOffPage';
 
@@ -9,10 +9,10 @@ const App = () => {
   return (
     <Router>
       <div>
-        <Switch>
+        <Routes>
           <Route path='/' exact component={GeneralMetricsPage} />
           <Route path='/time-to-sign-off' component={TimeToSignOffPage} />
-        </Switch>
+        </Routes>
       </div>
     </Router>
   );
