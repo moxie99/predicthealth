@@ -10,8 +10,8 @@ const App = () => {
     <Router>
       <div>
         <Routes>
-          <Route path='/' exact component={GeneralMetricsPage} />
-          <Route path='/time-to-sign-off' component={TimeToSignOffPage} />
+          <Route path='/' exact element={<GeneralMetricsPage />} />
+          <Route path='/time-to-sign-off' element={<TimeToSignOffPage />} />
         </Routes>
       </div>
     </Router>

@@ -16,19 +16,24 @@ const GeneralMetricsPage = () => {
     });
   }, []);
 
-  const clinics = ['All', ...new Set(data.map((item) => item.Clinic))];
-  const providers = ['All', ...new Set(data.map((item) => item.Provider))];
+  const clinics = ['All', ...new Set(data.map((item) => item.clinicName))];
+  const providers = [
+    'All',
+    ...new Set(data.map((item) => item.providerFullName)),
+  ];
 
+  console.log(data, '????++++|||||');
   const filteredData = data.filter((item) => {
     return (
-      (clinicFilter === 'All' || item.Clinic === clinicFilter) &&
-      (providerFilter === 'All' || item.Provider === providerFilter)
+      (clinicFilter === 'All' || item.clinicName === clinicFilter) &&
+      (providerFilter === 'All' || item.providerFullName === providerFilter)
     );
   });
 
   // Example: Generating chart data and options
+
   const chartData = {
-    labels: filteredData.map((item) => item.City),
+    labels: filteredData.map((item) => item.clinicState),
     datasets: [
       {
         label: 'Number of Cases',
@@ -58,6 +63,7 @@ const GeneralMetricsPage = () => {
     },
   };
 
+  console.log(clinics);
   return (
     <div>
       <h2>General Practice Metrics</h2>
@@ -71,7 +77,7 @@ const GeneralMetricsPage = () => {
         selected={providerFilter}
         onSelect={setProviderFilter}
       />
-      <Chart data={chartData} options={chartOptions} />
+      {/* <Chart data={chartData} options={chartOptions} /> */}
     </div>
   );
 };
