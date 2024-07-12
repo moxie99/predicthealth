@@ -63,7 +63,30 @@ const GeneralMetricsPage = () => {
     },
   };
 
-  console.log(clinics);
+  const countOccurrences = (arr, key) => {
+    return data.reduce((acc, obj) => {
+      acc[obj[key]] = (acc[obj[key]] || 0) + 1;
+      return acc;
+    }, {});
+  };
+  // Count occurrences of clinicState and providerFullName
+  const clinicStateCount = countOccurrences(data, 'clinicState');
+  const providerCount = countOccurrences(data, 'providerFullName');
+
+  // Extract and count occurrences of encounterSignOffTimeFirst by month
+  const encounterCountByMonth = data.reduce((acc, obj) => {
+    const month = new Date(obj.encounterSignOffTimeFirst).toLocaleString(
+      'default',
+      { month: 'short' }
+    );
+    acc[month] = (acc[month] || 0) + 1;
+    return acc;
+  }, {});
+
+  console.log('Clinic State Count:', clinicStateCount);
+  console.log('Provider Count:', providerCount);
+  console.log('Encounter Count by Month:', encounterCountByMonth);
+
   return (
     <div>
       <h2>General Practice Metrics</h2>
@@ -77,7 +100,12 @@ const GeneralMetricsPage = () => {
         selected={providerFilter}
         onSelect={setProviderFilter}
       />
-      {/* <Chart data={chartData} options={chartOptions} /> */}
+      <Chart
+        clinicStateCount={clinicStateCount}
+        providerCount={providerCount}
+        encounterCountByMonth={encounterCountByMonth}
+        options={chartOptions}
+      />
     </div>
   );
 };
